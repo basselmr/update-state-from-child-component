@@ -1,4 +1,4 @@
-import Item from "../components/Item";
+
 
 function addCart(name) {
     if (name === "") {

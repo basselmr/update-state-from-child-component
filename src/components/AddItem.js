@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 class AddItem extends React.Component {
 
     constructor(props) {
@@ -26,11 +27,15 @@ class AddItem extends React.Component {
 
         return (
             <>
-                <h1>ADD NEW</h1>
-                <form onSubmit={this.add}>
-                    <label htmlFor="newName">New: </label>
-                    <input id="newName" type='text' onChange={this.inputChangedHandler} value={this.state.name} />
-                    <button >ADD</button>
+
+                <form className="container col-9" onSubmit={this.add}>
+                    <h3>ADD NEW</h3>
+                    <div className="input-group mb-3">
+                        <label className="input-group-text" htmlFor="newName">New: </label>
+                        <input className="form-control" id="newName" type='text' onChange={this.inputChangedHandler} value={this.state.name} />
+                        <button className="btn btn-secondary" >ADD</button>
+                    </div>
+
                 </form>
             </>
 
