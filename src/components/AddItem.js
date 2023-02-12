@@ -28,7 +28,7 @@ class AddItem extends React.Component {
             <>
                 <h1>ADD NEW</h1>
                 <form onSubmit={this.add}>
-                    <label for="newName">New: </label>
+                    <label htmlFor="newName">New: </label>
                     <input id="newName" type='text' onChange={this.inputChangedHandler} value={this.state.name} />
                     <button >ADD</button>
                 </form>
