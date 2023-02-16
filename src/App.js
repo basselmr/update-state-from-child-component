@@ -27,8 +27,19 @@ class App extends react.Component {
       .then(txt => console.log(txt));
   }
 
+  async getData2() {
+    console.log("1");
+    let x = await fetch('https://basselmr.000webhostapp.com/');
+    console.log("2");
+    let y = await x.text();
+    console.log("y", y);
+    console.log("3");
+    x = await fetch('https://basselmr.000webhostapp.com/');
+    let z = await x.json();
+    console.log("4");
+    console.log("z", z);
 
-
+  }
 
 
   render() {
@@ -45,7 +56,7 @@ class App extends react.Component {
         <AddItem addC={this.addCart} />
         <hr></hr>
         {ss}
-        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData() }}>Save</button>
+        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData(); this.getData2() }}>Save</button>
       </div >
     )
   }
