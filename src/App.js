@@ -15,7 +15,21 @@ class App extends react.Component {
     this.addCart = addCart.bind(this);
     this.updateItem = updateItem.bind(this);
     this.deleteItem = deleteItem.bind(this);
+    this.getData()
+
   }
+  getData() {
+    fetch('https://basselmr.000webhostapp.com/')
+      .then(res => { console.log(res); return res.text() })
+      .then(txt => console.log(txt));
+    fetch('https://basselmr.000webhostapp.com/')
+      .then(res => { console.log(res); return res.json() })
+      .then(txt => console.log(txt));
+  }
+
+
+
+
 
   render() {
     const ss = this.state.cart.map(itm => <Item key={itm.id} itmId={itm.id} itmName={itm.name} updateC={this.updateItem} delC={this.deleteItem} />)
@@ -23,7 +37,7 @@ class App extends react.Component {
     return (
       <div className="App" >
         <h1 className="btn btn-primary position-relative m-2">Total Items
-          <p class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          <p className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {this.state.count}
           </p>
         </h1>
@@ -31,7 +45,7 @@ class App extends react.Component {
         <AddItem addC={this.addCart} />
         <hr></hr>
         {ss}
-        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee") }}>Save</button>
+        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData() }}>Save</button>
       </div >
     )
   }
