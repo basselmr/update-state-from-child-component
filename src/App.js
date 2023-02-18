@@ -15,35 +15,42 @@ class App extends react.Component {
     this.addCart = addCart.bind(this);
     this.updateItem = updateItem.bind(this);
     this.deleteItem = deleteItem.bind(this);
-    this.getData()
+    this.getData2()
 
   }
-  getData() {
+  /*getData() {
     fetch('https://basselmr.000webhostapp.com/')
       .then(res => { console.log(res); return res.text() })
       .then(txt => console.log(txt));
     fetch('https://basselmr.000webhostapp.com/')
       .then(res => { console.log(res); return res.json() })
       .then(txt => console.log(txt));
-  }
+  }*/
 
   async getData2() {
-    console.log("1");
+    //console.log("1");
     let x = await fetch('https://basselmr.000webhostapp.com/');
-    console.log("2");
+    //console.log("2");
     let y = await x.text();
-    console.log("y", y);
-    console.log("3");
+    //console.log("y", y);
+    //console.log("step3");
     x = await fetch('https://basselmr.000webhostapp.com/');
-    let z = await x.json();
-    console.log("4");
-    console.log("z", z);
-
+    let z = await x.json()
+    this.setState({ cart: z })
+    //console.log("4");
+    //console.log("z", z)
+    //console.log(this.state)
+    let cnt = 0;
+    z.forEach(element => {
+      cnt += 1
+      //console.log(element)
+    });
+    //console.log(cnt)
+    this.setState({ count: cnt });
   }
 
-
   render() {
-    const ss = this.state.cart.map(itm => <Item key={itm.id} itmId={itm.id} itmName={itm.name} updateC={this.updateItem} delC={this.deleteItem} />)
+    const ss = this.state.cart.map(itm => <Item key={itm.user_id} itmId={itm.user_id} itmName={itm.user_name} updateC={this.updateItem} delC={this.deleteItem} />)
     //console.log(ss)
     return (
       <div className="App" >
@@ -56,7 +63,7 @@ class App extends react.Component {
         <AddItem addC={this.addCart} />
         <hr></hr>
         {ss}
-        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData(); this.getData2() }}>Save</button>
+        <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData2(); this.getData2() }}>Save</button>
       </div >
     )
   }

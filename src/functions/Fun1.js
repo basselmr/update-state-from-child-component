@@ -9,15 +9,15 @@ function addCart(name) {
     let max = 0;
     it.forEach(element => {
         //console.log(element)
-        if (max < element.id) {
+        if (max < element.user_id) {
             //console.log("max ", max, "ID ", element.id)
-            max = element.id
+            max = element.user_id
             //console.log("max", max)
         }
     });
     max += 1
     //console.log("temp", it)
-    this.setState({ cart: [...this.state.cart, { id: max, name: name }] })
+    this.setState({ cart: [...this.state.cart, { user_id: max, user_name: name }] })
     this.setState({ count: this.state.count + 1 })
 }
 function updateItem(id, name) {
@@ -37,14 +37,14 @@ function updateItem(id, name) {
 }
 function deleteItem(id) {
     const newData = this.state.cart.filter(itm => {
-        if (itm.id !== id) {
+        if (itm.user_id !== id) {
             return itm;
         }
     })
     //console.log(newData)
     var c = 1;
     newData.map(itm => {
-        itm.id = c;
+        itm.user_id = c;
         c += 1;
     })
     this.setState({ cart: newData });
