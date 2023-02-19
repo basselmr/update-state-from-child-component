@@ -29,13 +29,20 @@ class App extends react.Component {
 
   async getData2() {
     //console.log("1");
-    let x = await fetch('https://basselmr.000webhostapp.com/');
+    let x = await fetch('https://basselmr.000webhostapp.com/sub/', {
+      method: 'POST',
+      body: JSON.stringify({ "1": "2" })
+    });
     //console.log("2");
     let y = await x.text();
-    //console.log("y", y);
+    console.log("y", y);
     //console.log("step3");
     x = await fetch('https://basselmr.000webhostapp.com/');
     let z = await x.json()
+    z = z.map(itm => {
+      const b = parseInt(itm.user_id);
+      return { user_id: b, user_name: itm.user_name }
+    })
     this.setState({ cart: z })
     //console.log("4");
     //console.log("z", z)
