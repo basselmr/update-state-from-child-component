@@ -15,6 +15,9 @@ class App extends react.Component {
     this.addCart = addCart.bind(this);
     this.updateItem = updateItem.bind(this);
     this.deleteItem = deleteItem.bind(this);
+    this.xmlhttpreq = this.xmlhttpreq.bind(this)
+
+
     this.getData2()
 
   }
@@ -55,6 +58,23 @@ class App extends react.Component {
     //console.log(cnt)
     this.setState({ count: cnt });
   }
+  xmlhttpreq() {
+    const xhr1 = new XMLHttpRequest();
+    const url = 'https://basselmr.000webhostapp.com/';
+    xhr1.open("POST", url, true);
+    xhr1.onreadystatechange = () => {
+      if (xhr1.readyState === 4) {
+        console.log(xhr1.responseText);
+      }
+    }
+    xhr1.send("RRRRRRRRRRRRR");
+
+
+
+
+    console.log("done123");
+
+  }
 
   render() {
     const ss = this.state.cart.map(itm => <Item key={itm.user_id} itmId={itm.user_id} itmName={itm.user_name} updateC={this.updateItem} delC={this.deleteItem} />)
@@ -71,6 +91,7 @@ class App extends react.Component {
         <hr></hr>
         {ss}
         <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData2(); this.getData2() }}>Save</button>
+        <button className='btn btn-primary col-3 m-2' onClick={() => this.xmlhttpreq()}>xmlhttprequest</button>
       </div >
     )
   }
