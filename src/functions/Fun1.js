@@ -21,22 +21,56 @@ function addCart(name) {
     this.setState({ count: this.state.count + 1 })
 }
 function updateItem(id, name) {
-
     const newData = this.state.cart.map(itm => {
-        if (itm.id === id) {
-            return { ...itm, name: name };
+        if (itm.user_id === id) {
+            return { ...itm, user_name: name };
         } else {
             return itm;
         }
-
-
     })
-    //console.log(newData)
+    //console.log(id, name)
     this.setState({ cart: newData });
+}
 
+function saveRecord(id, name) {
+    const xhr1 = new XMLHttpRequest();
+    const url = 'http://backend.ugaritsoft.com/';
+    xhr1.open("POST", url, true);
+    xhr1.onreadystatechange = () => {
+        if (xhr1.readyState === 4) {
+            //console.log(xhr1.responseText);
+            this.getData2()
+        }
+    }
+    let d = {
+        type: "update",
+        data: {
+            user_id: id,
+            user_name: name
+        }
+    }
+    xhr1.send(JSON.stringify(d));
 }
 function deleteItem(id) {
-    const newData = this.state.cart.filter(itm => {
+    const xhr1 = new XMLHttpRequest();
+    const url = 'http://backend.ugaritsoft.com/';
+    xhr1.open("POST", url, true);
+    xhr1.onreadystatechange = () => {
+        if (xhr1.readyState === 4) {
+            //console.log(xhr1.responseText);
+            if (xhr1.responseText === '1') {
+                this.getData2()
+            }
+        }
+    }
+    let d = {
+        type: "delete",
+        data: {
+            user_id: id
+        }
+    }
+    xhr1.send(JSON.stringify(d));
+    /*const newData = this.state.cart.filter(itm => {
         if (itm.user_id !== id) {
             return itm;
         }
@@ -48,6 +82,27 @@ function deleteItem(id) {
         c += 1;
     })
     this.setState({ cart: newData });
-    this.setState({ count: this.state.count - 1 })
+    this.setState({ count: this.state.count - 1 })*/
 }
-export { addCart, updateItem, deleteItem }
+function addItem(name) {
+    const xhr1 = new XMLHttpRequest();
+    const url = 'http://backend.ugaritsoft.com/';
+    xhr1.open("POST", url, true);
+    xhr1.onreadystatechange = () => {
+        if (xhr1.readyState === 4) {
+            //console.log(xhr1.responseText);
+            if (xhr1.responseText === '1') {
+                this.getData2()
+            }
+        }
+    }
+    let d = {
+        type: "add",
+        data: {
+            user_name: name
+        }
+    }
+    xhr1.send(JSON.stringify(d));
+    //console.log("done123");
+}
+export { addCart, updateItem, deleteItem, addItem, saveRecord }

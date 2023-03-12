@@ -2,7 +2,7 @@ import react from 'react'
 import './App.css';
 import Item from './components/Item';
 import AddItem from './components/AddItem';
-import { addCart, updateItem, deleteItem } from './functions/Fun1'
+import { addCart, updateItem, deleteItem, addItem, saveRecord } from './functions/Fun1'
 import MyData from './Data/Data.json';
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,9 +15,8 @@ class App extends react.Component {
     this.addCart = addCart.bind(this);
     this.updateItem = updateItem.bind(this);
     this.deleteItem = deleteItem.bind(this);
-    this.xmlhttpreq = this.xmlhttpreq.bind(this)
-
-
+    this.addItem = addItem.bind(this);
+    this.saveRecord = saveRecord.bind(this);
     this.getData2()
 
   }
@@ -32,15 +31,15 @@ class App extends react.Component {
 
   async getData2() {
     //console.log("1");
-    let x = await fetch('https://basselmr.000webhostapp.com/sub/', {
+    /*let x = await fetch('http://www.backend.ugaritsoft.com/sub/', {
       method: 'POST',
       body: JSON.stringify({ "1": "2" })
-    });
+    });*/
     //console.log("2");
-    let y = await x.text();
-    console.log("y", y);
+    //let y = await x.text();
+    //console.log("y", y);
     //console.log("step3");
-    x = await fetch('https://basselmr.000webhostapp.com/');
+    let x = await fetch('http://www.backend.ugaritsoft.com/');
     let z = await x.json()
     z = z.map(itm => {
       const b = parseInt(itm.user_id);
@@ -58,7 +57,7 @@ class App extends react.Component {
     //console.log(cnt)
     this.setState({ count: cnt });
   }
-  xmlhttpreq() {
+  /*xmlhttpreq() {
     const xhr1 = new XMLHttpRequest();
     const url = 'https://basselmr.000webhostapp.com/';
     xhr1.open("POST", url, true);
@@ -67,17 +66,9 @@ class App extends react.Component {
         console.log(xhr1.responseText);
       }
     }
-    xhr1.send("RRRRRRRRRRRRR");
-
-
-
-
-    console.log("done123");
-
-  }
-
+    xhr1.send("RRRRRRRRRRRRR");*/
   render() {
-    const ss = this.state.cart.map(itm => <Item key={itm.user_id} itmId={itm.user_id} itmName={itm.user_name} updateC={this.updateItem} delC={this.deleteItem} />)
+    const ss = this.state.cart.map(itm => <Item key={itm.user_id} itmId={itm.user_id} itmName={itm.user_name} UpdateC={this.updateItem} delC={this.deleteItem} SaveC={this.saveRecord} />)
     //console.log(ss)
     return (
       <div className="App" >
@@ -86,12 +77,11 @@ class App extends react.Component {
             {this.state.count}
           </p>
         </h1>
-
-        <AddItem addC={this.addCart} />
+        <AddItem addC={this.addItem} />
         <hr></hr>
         {ss}
         <button className='btn btn-primary col-3' onClick={() => { this.updateItem(1, "eee"); this.getData2(); this.getData2() }}>Save</button>
-        <button className='btn btn-primary col-3 m-2' onClick={() => this.xmlhttpreq()}>xmlhttprequest</button>
+        <button className='btn btn-primary col-3 m-2' onClick={() => this.getData2()}>refresh</button>
       </div >
     )
   }
